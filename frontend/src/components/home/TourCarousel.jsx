@@ -92,7 +92,7 @@ export default function TourCarousel({ tours }) {
                 <TourCard
                   tour={tours[i]}
                   onClick={() =>
-                    navigate(`/tours?destination=${tours[i].name}`)
+                    navigate(`/tour/${tours[i]._id}`)
                   }
                 />
               </Box>
@@ -119,7 +119,7 @@ export default function TourCarousel({ tours }) {
             >
               <TourCard
                 tour={tour}
-                onClick={() => navigate(`/tours?destination=${tour.name}`)}
+                onClick={() => navigate(`/tour/${tours[i]._id}`)}
               />
             </Box>
           ))}
