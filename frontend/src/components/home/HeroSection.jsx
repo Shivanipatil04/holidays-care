@@ -6,12 +6,14 @@ export default function HeroSection({ heroImages }) {
   const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
   const [fade, setFade] = useState(true);
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
   useEffect(() => {
     if (!heroImages.length) return;
 
     const interval = setInterval(() => {
       setFade(false);
+
       setTimeout(() => {
         setCurrent((prev) => (prev + 1) % heroImages.length);
         setFade(true);
@@ -22,7 +24,7 @@ export default function HeroSection({ heroImages }) {
   }, [heroImages]);
 
   const imageUrl = heroImages[current]?.imageUrl
-    ? `http://localhost:5000${heroImages[current].imageUrl}`
+    ? `${API_URL}${heroImages[current].imageUrl}`
     : "/hero.png";
 
   return (
@@ -34,14 +36,25 @@ export default function HeroSection({ heroImages }) {
         alignItems: "center",
         justifyContent: "center",
         color: "white",
-        backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${imageUrl})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        opacity: fade ? 1 : 0,
-        transition: "opacity 0.4s ease-in-out",
+        overflow: "hidden",
       }}
     >
-      <Container maxWidth="md">
+      {/* Background Layer */}
+      <Box
+        sx={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${imageUrl})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          opacity: fade ? 1 : 0.7,
+          transition: "opacity 0.8s ease-in-out",
+          zIndex: 0,
+        }}
+      />
+
+      {/* Content */}
+      <Container maxWidth="md" sx={{ position: "relative", zIndex: 1 }}>
         <Paper
           elevation={0}
           sx={{
@@ -92,7 +105,9 @@ export default function HeroSection({ heroImages }) {
           </Button>
 
           {/* Dot indicators */}
-          <Box sx={{ display: "flex", justifyContent: "center", gap: 1, mt: 3 }}>
+          <Box
+            sx={{ display: "flex", justifyContent: "center", gap: 1, mt: 3 }}
+          >
             {heroImages.map((_, i) => (
               <Box
                 key={i}

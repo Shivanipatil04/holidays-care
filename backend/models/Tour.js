@@ -1,90 +1,86 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const tourSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  description: {
-    type: String,
-    required: true
-  },
-  price: {
-    type: Number,
-    required: true
-  },
-  originalPrice: {
-    type: Number,
-    default: null
-  },
-  duration: {
-    type: String,
-    required: true
-  },
-  category: {
-    type: String,
-    enum: ['domestic', 'international'],
-    required: true
-  },
-  destination: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  images: [{
-    type: String
-  }],
-  highlights: [{
-    type: String
-  }],
-  inclusions: [{
-    type: String
-  }],
-  exclusions: [{
-    type: String
-  }],
-  itinerary: [{
-    day: Number,
-    title: String,
-    description: String
-  }],
-  maxGroupSize: {
-    type: Number,
-    default: 15
-  },
-  difficulty: {
-    type: String,
-    enum: ['easy', 'moderate', 'challenging'],
-    default: 'moderate'
-  },
-  rating: {
-    type: Number,
-    default: 4.5,
-    min: 0,
-    max: 5
-  },
-  totalReviews: {
-    type: Number,
-    default: 0
-  },
-  featured: {
-    type: Boolean,
-    default: false
-  },
-  popular: {
-    type: Boolean,
-    default: false
-  },
-  isActive: {
-    type: Boolean,
-    default: true
-  },
-  tags: [{
-    type: String
-  }]
-}, {
-  timestamps: true
+const itinerarySchema = new mongoose.Schema({
+  day: Number,
+  title: String,
+  description: String,
 });
 
-module.exports = mongoose.model('Tour', tourSchema);
+const tourSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    slug: {
+      type: String,
+      unique: true,
+    },
+
+    description: {
+      type: String,
+      required: true,
+    },
+
+    price: {
+      type: Number,
+      required: true,
+    },
+
+    duration: {
+      type: String,
+      required: true,
+    },
+
+    category: {
+      type: String,
+      enum: ["domestic", "international"],
+      required: true,
+    },
+
+    destination: {
+      type: String,
+      required: true,
+    },
+
+    images: [String],
+
+    highlights: [String],
+
+    includes: [String],
+
+    excludes: [String],
+
+    itinerary: [itinerarySchema],
+
+    featured: {
+      type: Boolean,
+      default: false,
+    },
+
+    popular: {
+      type: Boolean,
+      default: false,
+    },
+
+    rating: {
+      type: Number,
+      default: 4.5,
+    },
+
+    totalReviews: {
+      type: Number,
+      default: 0,
+    },
+
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  { timestamps: true },
+);
+
+module.exports = mongoose.model("Tour", tourSchema);

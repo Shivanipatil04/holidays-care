@@ -1,12 +1,8 @@
 import { useEffect, useState, lazy, Suspense } from "react";
 import { Explore, Public } from "@mui/icons-material";
-import { heroAPI } from "../services/api";
-// import { fetchTours } from "@/services/tour.service";
-import {
-  popularTours,
-  domesticTours,
-  internationalTours,
-} from "@/data/tours.mock";
+import { toursAPI, heroAPI } from "@/services/api";
+import SnowEffect from "@/components/effects/SnowEffect";
+import { Box } from "@mui/material";
 
 const HeroSection = lazy(() => import("@/components/home/HeroSection"));
 const TourSection = lazy(() => import("@/components/home/TourSection"));
@@ -15,31 +11,29 @@ const ContactSection = lazy(() => import("@/components/home/ContactSection"));
 
 export default function HomePage() {
   const [heroImages, setHeroImages] = useState([]);
-  //   const [domesticTours, setDomesticTours] = useState([]);
-  //   const [internationalTours, setInternationalTours] = useState([]);
+  const [popularTours, setPopularTours] = useState([]);
+  console.log("Popular", popularTours);
+  const [domesticTours, setDomesticTours] = useState([]);
+  const [internationalTours, setInternationalTours] = useState([]);
 
-//   useEffect(() => {
-    // fetchTours("domestic").then(setDomesticTours);
-    // fetchTours("international").then(setInternationalTours);
-//   }, []);
   useEffect(() => {
-  heroAPI.getAll()
-    .then((res) =>
-      setHeroImages(
-        res.data.length > 0
-          ? res.data
-          : [{ title: "Explore The World", subtitle: "Find your perfect destination", imageUrl: "" }]
-      )
-    )
-    .catch(() =>
-      setHeroImages([
-        { title: "Explore The World", subtitle: "Find your perfect destination", imageUrl: "" }
-      ])
-    );
-}, []);
+    heroAPI.getAll().then((res) => setHeroImages(res.data));
+
+    toursAPI.getAll({ popular: true }).then((res) => setPopularTours(res.data));
+
+    toursAPI
+      .getAll({ category: "domestic" })
+      .then((res) => setDomesticTours(res.data));
+
+    toursAPI
+      .getAll({ category: "international" })
+      .then((res) => setInternationalTours(res.data));
+  }, []);
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
+      <SnowEffect />
+
       <HeroSection heroImages={heroImages} />
 
       <PopularSection tours={popularTours} />
@@ -53,7 +47,7 @@ export default function HomePage() {
       />
 
       <TourSection
-        bg="#f8f9fa"
+        bg="#fcf8f5"
         icon={<Public />}
         label="Global Wonders"
         title="International Wonders"

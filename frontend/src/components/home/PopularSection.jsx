@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function PopularSection({ tours = [] }) {
   const navigate = useNavigate();
-
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
   if (!tours.length) return null;
 
   return (
@@ -64,7 +64,7 @@ export default function PopularSection({ tours = [] }) {
               {/* Image */}
               <Box
                 component="img"
-                src={tour.image}
+                src={`${API_URL}${tour?.images?.[0]}`}
                 sx={{
                   position: "absolute",
                   inset: 0,
@@ -92,12 +92,13 @@ export default function PopularSection({ tours = [] }) {
                   bottom: 0,
                   p: 4,
                   color: "white",
+                  width: '100%'
                 }}
               >
                 <Typography variant="overline">{tour.caption}</Typography>
 
                 <Typography variant="h4" fontWeight={800}>
-                  {tour.name}
+                  {tour?.title}
                 </Typography>
 
                 <Typography
@@ -105,7 +106,7 @@ export default function PopularSection({ tours = [] }) {
                   fontWeight={800}
                   sx={{ color: "#4fc3f7", my: 2 }}
                 >
-                  ₹{tour.price.toLocaleString()}
+                  ₹{tour?.price?.toLocaleString()}
                 </Typography>
 
                 <Button
@@ -117,7 +118,7 @@ export default function PopularSection({ tours = [] }) {
                     fontWeight: 700,
                     textTransform: "none",
                   }}
-                  onClick={() => navigate(`/tours?destination=${tour.name}`)}
+                  onClick={() => navigate(`/tour/${tour._id}`)}
                 >
                   Book Now
                 </Button>

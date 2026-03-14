@@ -28,15 +28,11 @@ export const authAPI = {
 
 // Tours API
 export const toursAPI = {
-  getAll: (category) => api.get('/tours', { params: { category } }),
+  getAll: (params) => api.get("/tours", { params }),
   getOne: (id) => api.get(`/tours/${id}`),
-  create: (formData) => api.post('/tours', formData, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  }),
-  update: (id, formData) => api.put(`/tours/${id}`, formData, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  }),
-  delete: (id) => api.delete(`/tours/${id}`),
+  create: (formData) => api.post("/tours", formData),
+  update: (id, formData) => api.put(`/tours/${id}`, formData),
+  delete: (id) => api.delete(`/tours/${id}`)
 };
 
 // Hero Images API

@@ -80,19 +80,23 @@ export default function TourCarousel({ tours }) {
             gap: 3,
           }}
         >
-          {getVisible().map((i) => (
-            <Box
-              key={i}
-              sx={{
-                flex: 1, // 🔥 equal width always
-              }}
-            >
-              <TourCard
-                tour={tours[i]}
-                onClick={() => navigate(`/tours?destination=${tours[i].name}`)}
-              />
-            </Box>
-          ))}
+          {getVisible()
+            .filter((i) => tours[i])
+            .map((i) => (
+              <Box
+                key={tours[i]._id}
+                sx={{
+                  flex: 1, // 🔥 equal width always
+                }}
+              >
+                <TourCard
+                  tour={tours[i]}
+                  onClick={() =>
+                    navigate(`/tours?destination=${tours[i].name}`)
+                  }
+                />
+              </Box>
+            ))}
         </Box>
 
         {/* Mobile */}
@@ -107,7 +111,7 @@ export default function TourCarousel({ tours }) {
         >
           {tours.map((tour, i) => (
             <Box
-              key={i}
+              key={tours[i]?._id || i}
               sx={{
                 flex: "0 0 100%",
                 scrollSnapAlign: "start",
