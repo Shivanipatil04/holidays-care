@@ -4,7 +4,7 @@ export default function SnowEffect() {
   return (
     <Snowfall
       snowflakeCount={120}
-      speed={[0.8, 2]}
+      speed={[0.6, 1.7]}
       radius={[0.5, 3]}
       style={{
         position: "fixed",
