@@ -19,6 +19,7 @@ export default function HeroSection({ heroImages = [], tours = [] }) {
   const [current, setCurrent] = useState(0);
   const [fade, setFade] = useState(true);
   const [searchValue, setSearchValue] = useState(null);
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
   useEffect(() => {
 
@@ -40,7 +41,7 @@ export default function HeroSection({ heroImages = [], tours = [] }) {
   }, [heroImages]);
 
   const imageUrl = heroImages[current]?.imageUrl
-    ? `http://localhost:5000${heroImages[current].imageUrl}`
+    ? `${API_URL}${heroImages[current].imageUrl}`
     : "/hero.png";
 
   const handleSearch = () => {

@@ -1,11 +1,17 @@
 import { Box, Typography, Button } from "@mui/material";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 export default function TourCard({ tour, onClick }) {
+  const image =
+    tour?.images?.length > 0
+      ? `${API_URL}${tour.images[0]}`
+      : "/placeholder.jpg";
+
   return (
     <Box
       sx={{
         width: "100%",
-        height: 380, // 🔥 fixed height for ALL cards
+        height: 380,
         borderRadius: 2,
         overflow: "hidden",
         border: "1px solid #eee",
@@ -22,11 +28,11 @@ export default function TourCard({ tour, onClick }) {
       {/* Image */}
       <Box
         component="img"
-        src={tour.image}
-        alt={tour.name}
+        src={image}
+        alt={tour?.title}
         sx={{
           width: "100%",
-          height: 220, // 🔥 fixed image height
+          height: 200, 
           objectFit: "cover",
           display: "block",
         }}
@@ -44,7 +50,7 @@ export default function TourCard({ tour, onClick }) {
       >
         <Box>
           <Typography variant="h6" fontWeight={700}>
-            {tour.name}
+            {tour?.title}
           </Typography>
 
           <Typography
@@ -53,7 +59,7 @@ export default function TourCard({ tour, onClick }) {
             fontWeight={800}
             sx={{ mt: 1 }}
           >
-            ₹{tour.price.toLocaleString()}
+            ₹{tour?.price.toLocaleString()}
           </Typography>
         </Box>
 

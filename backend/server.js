@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve uploaded files
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/api/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Create upload directories
 const fs = require('fs');
@@ -24,10 +24,10 @@ uploadDirs.forEach(dir => {
 });
 
 // Routes
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/tours', require('./routes/tours'));
-app.use('/api/hero', require('./routes/hero'));
-app.use('/api/contact', require('./routes/contact'));
+app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/tours', require('./routes/tourRoutes'));
+app.use('/api/hero', require('./routes/heroRoutes'));
+app.use('/api/contact', require('./routes/contactRoutes'));
 
 // Health check
 app.get('/api/health', (req, res) => {
