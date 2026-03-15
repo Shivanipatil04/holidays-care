@@ -10,9 +10,9 @@ const PopularSection = lazy(() => import("@/components/home/PopularSection"));
 const ContactSection = lazy(() => import("@/components/home/ContactSection"));
 
 export default function HomePage() {
+
   const [heroImages, setHeroImages] = useState([]);
   const [popularTours, setPopularTours] = useState([]);
-  console.log("Popular", popularTours);
   const [domesticTours, setDomesticTours] = useState([]);
   const [internationalTours, setInternationalTours] = useState([]);
 
@@ -56,6 +56,7 @@ export default function HomePage() {
       />
 
       <ContactSection />
+
     </Suspense>
   );
 }

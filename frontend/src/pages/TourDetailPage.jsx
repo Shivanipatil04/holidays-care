@@ -8,9 +8,6 @@ import {
   Container,
   Typography,
   Grid,
-  Chip,
-  Card,
-  CardContent,
   Button,
   Divider,
 } from "@mui/material";
@@ -49,6 +46,19 @@ const TourDetailPage = () => {
       </Container>
     );
   }
+
+  const whatsappLink = () => {
+    const phone = "917666642587";
+
+    const text =
+      `Hello Holidays Care,%0A%0A` +
+      `I'm interested in booking the *${tour.name}* tour.%0A` +
+      `Duration: ${tour.duration || "N/A"}%0A` +
+      `Price: ${tour.price}%0A%0A` +
+      `Please share more details.`;
+
+    window.open(`https://wa.me/${phone}?text=${text}`);
+  };
 
   return (
     <Box>
@@ -97,6 +107,7 @@ const TourDetailPage = () => {
         </Box>
       </Box>
 
+      {/* MAIN SECTION */}
       <Container sx={{ py: { xs: 5, md: 8 } }}>
         {/* PRICE + BOOK BUTTON ROW */}
         <Box
@@ -144,7 +155,15 @@ const TourDetailPage = () => {
           </Button>
         </Box>
 
-        <Divider sx={{ mb: 5 }} />
+            {/* OVERVIEW */}
+            {tour.description && (
+              <Box sx={{ mb: 6 }}>
+                <Typography
+                  variant="h5"
+                  sx={{ fontWeight: 700, mb: 2 }}
+                >
+                  Overview
+                </Typography>
 
         {/* DESCRIPTION */}
         {tour?.description && (
@@ -309,6 +328,9 @@ const TourDetailPage = () => {
           </Button>
         </Box>
       </Container>
+
+     
+
     </Box>
   );
 };

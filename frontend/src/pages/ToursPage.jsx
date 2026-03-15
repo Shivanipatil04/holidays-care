@@ -47,9 +47,8 @@ const ToursPage = () => {
   }, [type]);
 
   return (
-    <Container sx={{ py: { xs: 6, md: 10 } }}>
+    <Container maxWidth="xl" sx={{ py: { xs: 6, md: 10 } }}>
 
-      {/* Heading */}
       <Typography
         variant="h3"
         align="center"
@@ -63,7 +62,6 @@ const ToursPage = () => {
         Explore Our Tours
       </Typography>
 
-      {/* Toggle Buttons */}
       <Box sx={{ display: "flex", justifyContent: "center", mb: 7 }}>
         <ToggleButtonGroup
           value={type}
@@ -80,40 +78,35 @@ const ToursPage = () => {
           <ToggleButton
             value="international"
             sx={{
-              px: { xs: 2.5, sm: 4 },
+              px: { xs: 3, sm: 4 },
               py: 1,
               borderRadius: "30px",
               border: "none",
               textTransform: "none",
               fontWeight: 600,
-              fontSize: { xs: "0.8rem", sm: "0.95rem" },
               color: "#555",
               "&.Mui-selected": {
                 color: "white",
                 background: "linear-gradient(135deg,#1976d2,#0d47a1)"
               }
-            }}
-          >
+            }}>
             International
           </ToggleButton>
 
-          <ToggleButton
-            value="domestic"
+          <ToggleButton value="domestic"
             sx={{
-              px: { xs: 2.5, sm: 4 },
+              px: { xs: 3, sm: 4 },
               py: 1,
               borderRadius: "30px",
               border: "none",
               textTransform: "none",
               fontWeight: 600,
-              fontSize: { xs: "0.8rem", sm: "0.95rem" },
               color: "#555",
               "&.Mui-selected": {
                 color: "white",
                 background: "linear-gradient(135deg,#1976d2,#0d47a1)"
               }
-            }}
-          >
+            }}>
             Domestic
           </ToggleButton>
 
