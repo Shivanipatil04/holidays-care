@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -13,35 +13,35 @@ import {
   useMediaQuery,
   useTheme,
   Divider,
-} from '@mui/material';
+} from "@mui/material";
 
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const navigate = useNavigate();
   const location = useLocation();
 
   const { isAuthenticated, logout } = useAuth();
 
-  // Menu items
   const menuItems = [
-    { text: 'Home', path: '/' },
-    { text: 'About Us', path: '/about' },
-    { text: 'Tours', path: '/tours' },
-    { text: 'Contact', path: '/contact' },
+    { text: "Home", path: "/" },
+    { text: "About Us", path: "/about" },
+    { text: "Tours", path: "/tours" },
+    { text: "Gallery", path: "/gallery" },
+    { text: "Contact", path: "/contact" },
   ];
 
   if (isAuthenticated) {
-    menuItems.push({ text: 'Admin', path: '/admin' });
+    menuItems.push({ text: "Admin", path: "/admin" });
   }
 
   const handleDrawerToggle = () => {
@@ -50,40 +50,41 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logout();
-    navigate('/');
+    navigate("/");
     setMobileOpen(false);
   };
 
   const isActive = (path) => location.pathname === path;
 
-  // Mobile Drawer (unchanged)
   const drawer = (
     <Box sx={{ width: 270 }}>
       <Box
         sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
           p: 2,
         }}
       >
         <Box
           component="img"
-          src="/logo.png"
+          src="/logo 1.png"
           alt="logo"
           sx={{
             height: 50,
-            width: 'auto',
+            width: "auto",
             maxWidth: 160,
-            objectFit: 'contain',
-            display: 'block'
+            objectFit: "contain",
           }}
         />
+
         <IconButton onClick={handleDrawerToggle}>
           <CloseIcon />
         </IconButton>
       </Box>
+
       <Divider />
+
       <List>
         {menuItems.map((item) => (
           <ListItemButton
@@ -93,18 +94,19 @@ const Navbar = () => {
             onClick={handleDrawerToggle}
             sx={{
               py: 1.5,
-              color: isActive(item.path) ? '#1976d2' : '#333',
+              color: isActive(item.path) ? "#1976d2" : "#333",
               fontWeight: isActive(item.path) ? 600 : 500,
             }}
           >
             <ListItemText primary={item.text} />
           </ListItemButton>
         ))}
+
         {isAuthenticated && (
           <ListItemButton onClick={handleLogout}>
             <ListItemText
               primary="Logout"
-              sx={{ color: '#d32f2f', fontWeight: 600 }}
+              sx={{ color: "#d32f2f", fontWeight: 600 }}
             />
           </ListItemButton>
         )}
@@ -118,47 +120,79 @@ const Navbar = () => {
         position="sticky"
         elevation={1}
         sx={{
-          bgcolor: 'white',
-          color: '#333',
+          bgcolor: "white",
+          color: "#333",
         }}
       >
-        <Container maxWidth="lg">
+        <Container maxWidth={false} disableGutters>
           <Toolbar
             sx={{
               minHeight: { xs: 65, md: 85 },
-              height: { xs: 65, md: 85 }, // Fixed height
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              height: { xs: 65, md: 85 },
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+               px: { xs: 2, md: 16 },
             }}
           >
-            {/* Logo - FIXED: Much larger + centered */}
+          {/* Logo Section */}
             <Box
               component={Link}
               to="/"
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                minWidth: { xs: 140, md: 260 },
-                height: { xs: 65, md: 85 }, // Full toolbar height
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "1px",
+                textDecoration: "none",
+                flexShrink: 0,
+                
               }}
             >
-              <Box
-                component="img"
-                src="/logo.png"
-                alt="Holidays Care"
-                sx={{
-                  height: { xs: 75, md: 100 }, // Much larger desktop
-                  width: 'auto',
-                  maxWidth: { xs: 140, md: 260 },
-                  objectFit: 'contain',
-                  display: 'block',
+              {/* Icon Logo */}
+            <div style={{
+              width: "52px",
+              height: "60px",
+              overflow: "hidden",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+            }}>
+              <img
+                src="/logo 1.png"
+                alt="logo icon"
+                style={{
+                  width: "110px",   // ⬇️ was 145px
+                  height: "110px",
+                  objectFit: "contain",
                 }}
               />
+            </div>
+
+            {/* Text Logo */}
+            <div style={{
+              width: "200px",       // ⬆️ wider container
+              height: "52px",
+              overflow: "hidden",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+              marginLeft: "-15px", 
+            }}>
+              <img
+                src="/logo 2.png"
+                alt="Holidays Care"
+                style={{
+                  width: "310px",   // ⬇️ was 390px
+                  height: "310px",
+                  objectFit: "contain",
+                }}
+              />
+            </div>
             </Box>
 
-            {/* Desktop Menu (unchanged) */}
+            {/* MENU */}
             {isMobile ? (
               <IconButton onClick={handleDrawerToggle}>
                 <MenuIcon sx={{ fontSize: 30 }} />
@@ -166,9 +200,9 @@ const Navbar = () => {
             ) : (
               <Box
                 sx={{
-                  display: 'flex',
+                  display: "flex",
                   gap: 3,
-                  alignItems: 'center',
+                  alignItems: "center",
                 }}
               >
                 {menuItems.map((item) => (
@@ -177,23 +211,25 @@ const Navbar = () => {
                     component={Link}
                     to={item.path}
                     sx={{
-                      fontSize: '15px',
+                      fontSize: "15px",
                       fontWeight: 600,
-                      color: isActive(item.path) ? '#1976d2' : '#333',
-                      position: 'relative',
-                      '&:hover': {
-                        color: '#1976d2',
-                        backgroundColor: 'transparent',
+                      color: isActive(item.path) ? "#1976d2" : "#333",
+                      position: "relative",
+
+                      "&:hover": {
+                        color: "#1976d2",
+                        backgroundColor: "transparent",
                       },
-                      '&::after': isActive(item.path)
+
+                      "&::after": isActive(item.path)
                         ? {
                             content: '""',
-                            position: 'absolute',
+                            position: "absolute",
                             bottom: -5,
                             left: 0,
-                            width: '100%',
-                            height: '3px',
-                            backgroundColor: '#1976d2',
+                            width: "100%",
+                            height: "3px",
+                            backgroundColor: "#1976d2",
                             borderRadius: 2,
                           }
                         : {},
@@ -202,18 +238,20 @@ const Navbar = () => {
                     {item.text}
                   </Button>
                 ))}
+
                 {isAuthenticated && (
                   <Button
                     variant="contained"
                     onClick={handleLogout}
                     sx={{
                       ml: 2,
-                      bgcolor: '#1976d2',
+                      bgcolor: "#1976d2",
                       borderRadius: 2,
                       px: 3,
                       fontWeight: 600,
-                      '&:hover': {
-                        bgcolor: '#1565c0',
+
+                      "&:hover": {
+                        bgcolor: "#1565c0",
                       },
                     }}
                   >

@@ -1,4 +1,3 @@
-
 import { Box, Container, Typography, Button, Chip } from "@mui/material";
 import { Star } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
@@ -6,10 +5,18 @@ import { useNavigate } from "react-router-dom";
 export default function PopularSection({ tours = [] }) {
   const navigate = useNavigate();
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
   if (!tours.length) return null;
 
   return (
-    <Box sx={{ py: 10, bgcolor: "#fcf8f5" }}>
+    <Box
+      sx={{
+        py: 10,
+        background:
+          "linear-gradient(135deg, #1b4557, #275f72, #2b5e74)", // darker gradient
+        position: "relative",
+      }}
+    >
       <Container maxWidth="lg">
         <Box textAlign="center" mb={6}>
           <Chip
@@ -18,16 +25,23 @@ export default function PopularSection({ tours = [] }) {
             sx={{
               fontWeight: 700,
               mb: 2,
-              bgcolor: "#fff",
+              bgcolor: "rgba(255,255,255,0.1)",
               border: "1px solid #ff9800",
+              color: "white",
+              backdropFilter: "blur(6px)",
             }}
           />
 
-          <Typography variant="h3" fontWeight={800} gutterBottom>
+          <Typography
+            variant="h3"
+            fontWeight={800}
+            gutterBottom
+            sx={{ color: "white" }}
+          >
             Most Popular Tours
           </Typography>
 
-          <Typography variant="body1" color="text.secondary">
+          <Typography variant="body1" sx={{ color: "rgba(255,255,255,0.7)" }}>
             Our most loved destinations by travelers around the globe.
           </Typography>
         </Box>
@@ -35,7 +49,7 @@ export default function PopularSection({ tours = [] }) {
         <Box
           sx={{
             display: "flex",
-            gap: 7, // slightly more spacing
+            gap: 7,
             flexWrap: "wrap",
             justifyContent: "center",
           }}
@@ -54,12 +68,12 @@ export default function PopularSection({ tours = [] }) {
                   sm: "48%",
                   md: "30%",
                 },
-                height: 460, // slightly bigger card
+                height: 460,
                 position: "relative",
                 borderRadius: 3,
                 overflow: "hidden",
                 cursor: "pointer",
-                boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
+                boxShadow: "0 10px 30px rgba(0,0,0,0.25)",
                 "&:hover img": { transform: "scale(1.1)" },
               }}
             >
@@ -94,7 +108,7 @@ export default function PopularSection({ tours = [] }) {
                   bottom: 0,
                   p: 4,
                   color: "white",
-                  width: '100%'
+                  width: "100%",
                 }}
               >
                 <Typography variant="overline">{tour.caption}</Typography>
@@ -103,7 +117,6 @@ export default function PopularSection({ tours = [] }) {
                   {tour?.title}
                 </Typography>
 
-                {/* Starting price */}
                 <Typography
                   variant="body2"
                   sx={{

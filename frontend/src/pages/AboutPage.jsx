@@ -10,6 +10,7 @@ import {
   Avatar,
 } from "@mui/material";
 
+import PersonIcon from "@mui/icons-material/Person";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { Autoplay } from "swiper/modules";
@@ -68,6 +69,16 @@ const whyChoose = [
     desc: "We love travel and work hard to give you the best holiday experience.",
   },
 ];
+ const team = [
+    {
+      name: "Prashant Birare",
+      role: "Founder/Owner"
+    },
+    {
+      name: "Komal Jadhav",
+      role: "Operations Head"
+    }
+  ];
 
 const AboutPage = () => {
   const navigate = useNavigate();
@@ -100,16 +111,17 @@ const AboutPage = () => {
             }}
           >
             {/* LEFT IMAGE */}
-            <Box sx={{ flex: 1 }}>
+            <Box sx={{ flex: 1, display: "flex", justifyContent: "center" }}>
               <Box
                 component="img"
-                src="logo.png"
+                src="/aboutUs.jpeg"
                 alt="Travel"
                 sx={{
                   width: "100%",
-                  height: 460,
-                  objectFit: "cover",
-                  borderRadius: 2,
+                  maxWidth: 520,
+                  height: "auto",
+                  objectFit: "contain",
+                  borderRadius: 1,
                   boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
                 }}
               />
@@ -352,6 +364,98 @@ const AboutPage = () => {
           </Swiper>
         </Container>
       </Box>
+
+       
+    <Box sx={{ py: 10 }}>
+      <Container>
+
+        {/* Heading */}
+        <Typography
+          variant="h3"
+          align="center"
+          fontWeight={700}
+          sx={{ mb: 2 }}
+        >
+          Meet Our Team
+        </Typography>
+
+        <Typography
+          align="center"
+          sx={{
+            mb: 6,
+            color: "text.secondary",
+            maxWidth: 600,
+            mx: "auto"
+          }}
+        >
+          The passionate people behind Holidays Care who make every journey
+          memorable and seamless for our travelers.
+        </Typography>
+
+        <Grid container spacing={4} justifyContent="center">
+
+          {team.map((member, index) => (
+
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              md={3}
+              sx={{
+                display: "flex",
+                justifyContent: "center"
+              }}
+            >
+
+              <Card
+                sx={{
+                    width: 240,         
+                    height: 240, 
+                  textAlign: "center",
+                  borderRadius: 1,
+                  boxShadow: 3,
+                  py: 4,
+                 
+                }}
+              >
+
+                <Avatar
+                  sx={{
+                    width: 80,
+                    height: 80,
+                    bgcolor: "#1976d2",
+                    mx: "auto",
+                    mb: 2
+                  }}
+                >
+                  <PersonIcon fontSize="large" />
+                </Avatar>
+
+                <CardContent>
+
+                  <Typography variant="h6" fontWeight={700}>
+                    {member.name}
+                  </Typography>
+
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                  >
+                    {member.role}
+                  </Typography>
+
+                </CardContent>
+
+              </Card>
+
+            </Grid>
+
+          ))}
+
+        </Grid>
+
+      </Container>
+    </Box>
       {/* FINAL CTA SECTION */}
       {/* FINAL CTA SECTION */}
       <Box

@@ -7,6 +7,7 @@ import { Box } from "@mui/material";
 const HeroSection = lazy(() => import("@/components/home/HeroSection"));
 const TourSection = lazy(() => import("@/components/home/TourSection"));
 const PopularSection = lazy(() => import("@/components/home/PopularSection"));
+
 const ContactSection = lazy(() => import("@/components/home/ContactSection"));
 
 export default function HomePage() {
@@ -47,14 +48,14 @@ export default function HomePage() {
       />
 
       <TourSection
-        bg="#fcf8f5"
+        bg= "linear-gradient(135deg, #1b4557, #275f72, #2b5e74)"
         icon={<Public />}
         label="Global Wonders"
         title="International Wonders"
         subtitle="Curated global experiences."
         tours={internationalTours}
       />
-
+     
       <ContactSection />
 
     </Suspense>
