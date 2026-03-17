@@ -206,7 +206,7 @@ const AboutPage = () => {
                       fontSize: { xs: "28px", md: "42px" },
                     }}
                   >
-                    <CountUp end={item.number} duration={3} separator="," />+
+                    <CountUp end={item.number} duration={5} separator="," />+
                   </Typography>
 
                   {/* LABEL */}
@@ -228,7 +228,7 @@ const AboutPage = () => {
       </Box>
 
       {/* WHY CHOOSE US */}
-      <Box sx={{ bgcolor: "#f4f8fc", py: 12 }}>
+      <Box sx={{ bgcolor: "#f4f8fc", py: 10 }}>
         <Container>
           <Typography
             variant="h3"
@@ -238,30 +238,47 @@ const AboutPage = () => {
             WHY CHOOSE US?
           </Typography>
 
-          <Grid container spacing={4}>
-            {whyChoose.map((item, index) => (
-              <Grid item xs={12} md={3} key={index}>
-                <Card
-                  sx={{
-                    p: 4,
-                    textAlign: "center",
-                    borderRadius: 4,
-                    transition: "0.1s",
-                    "&:hover": {
-                      transform: "translateY(-1px)",
-                      boxShadow: 6,
-                    },
-                  }}
-                >
-                  {item.icon}
-                  <Typography variant="h6" sx={{ mt: 2, mb: 2 }}>
-                    {item.title}
-                  </Typography>
-                  <Typography color="text.secondary">{item.desc}</Typography>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
+          <Box
+  sx={{
+    display: "grid",
+    gridTemplateColumns: {
+      xs: "1fr",
+      sm: "1fr 1fr",
+      md: "1fr 1fr",
+    },
+    gap: 4,
+  }}
+>
+  {whyChoose.map((item, index) => (
+    <Card
+      key={index}
+      sx={{
+        p: 3,
+        textAlign: "center",
+        borderRadius: 4,
+        height: "70%",
+        minHeight: 200,   // ⭐ forces equal size
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        transition: "0.1s",
+        "&:hover": { transform: "translateY(-1px)", boxShadow: 6, },
+       
+      }}
+    >
+      {item.icon}
+
+      <Typography variant="h6" sx={{ mt: 2, mb: 2 }}>
+        {item.title}
+      </Typography>
+
+      <Typography color="text.secondary">
+        {item.desc}
+      </Typography>
+    </Card>
+  ))}
+</Box>
         </Container>
       </Box>
 

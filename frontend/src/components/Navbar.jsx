@@ -127,70 +127,69 @@ const Navbar = () => {
         <Container maxWidth={false} disableGutters>
           <Toolbar
             sx={{
-              minHeight: { xs: 65, md: 85 },
-              height: { xs: 65, md: 85 },
+              minHeight: { xs: 75, md: 100},
+              height: { xs: 75, md: 100 },
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
                px: { xs: 2, md: 16 },
             }}
           >
-          {/* Logo Section */}
-            <Box
-              component={Link}
-              to="/"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "1px",
-                textDecoration: "none",
-                flexShrink: 0,
-                
-              }}
-            >
-              {/* Icon Logo */}
-            <div style={{
-              width: "52px",
-              height: "60px",
-              overflow: "hidden",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexShrink: 0,
-            }}>
-              <img
-                src="/logo 1.png"
-                alt="logo icon"
-                style={{
-                  width: "110px",   // ⬇️ was 145px
-                  height: "110px",
-                  objectFit: "contain",
-                }}
-              />
-            </div>
+         {/* Logo Section */}
+<Box
+  component={Link}
+  to="/"
+  style={{
+    display: "flex",
+    alignItems: "center",
+    gap: "6px",
+    textDecoration: "none",
+    flexShrink: 0,
+  }}
+>
+  {/* Icon Logo */}
+  <div
+    style={{
+      width: "70px",
+      height: "75px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    }}
+  >
+    <img
+      src="/logo 1.png"
+      alt="logo icon"
+      style={{
+        width: "140px",
+        height: "140px",
+        objectFit: "contain",
+      }}
+    />
+  </div>
 
-            {/* Text Logo */}
-            <div style={{
-              width: "200px",       // ⬆️ wider container
-              height: "52px",
-              overflow: "hidden",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexShrink: 0,
-              marginLeft: "-15px", 
-            }}>
-              <img
-                src="/logo 2.png"
-                alt="Holidays Care"
-                style={{
-                  width: "310px",   // ⬇️ was 390px
-                  height: "310px",
-                  objectFit: "contain",
-                }}
-              />
-            </div>
-            </Box>
+  {/* Text Logo */}
+  <div
+    style={{
+      width: "260px",
+      height: "70px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      marginLeft: "-40px",
+    }}
+  >
+    <img
+      src="/logo 2.png"
+      alt="Holidays Care"
+      style={{
+        width: "380px",
+        height: "380px",
+        objectFit: "contain",
+      }}
+    />
+  </div>
+</Box>
 
             {/* MENU */}
             {isMobile ? (

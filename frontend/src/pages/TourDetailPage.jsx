@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { toursAPI } from "../services/api";
+import { motion } from "framer-motion";
 
 import {
   Box,
@@ -13,7 +14,15 @@ import {
 } from "@mui/material";
 
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" }
+  }
+};
 
 const TourDetailPage = () => {
 
@@ -25,7 +34,6 @@ const TourDetailPage = () => {
   const [tour, setTour] = useState(null);
 
   useEffect(() => {
-
     const fetchTour = async () => {
       try {
         const res = await toursAPI.getOne(id);
@@ -34,9 +42,7 @@ const TourDetailPage = () => {
         console.error("Failed to fetch tour", error);
       }
     };
-
     fetchTour();
-
   }, [id]);
 
   if (!tour) {
@@ -75,6 +81,10 @@ const TourDetailPage = () => {
 
       {/* HERO */}
       <Box
+        component={motion.div}
+        initial="hidden"
+        animate="show"
+        variants={fadeUp}
         sx={{
           height: { xs: 320, md: 480 },
           backgroundImage: `linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.65)), url(${API_URL}${tour?.images?.[0]})`,
@@ -97,259 +107,113 @@ const TourDetailPage = () => {
           </Typography>
 
           {tour.duration && (
-            <Typography
-              sx={{ color: "#90caf9", mt: 1, fontWeight: 500 }}
-            >
+            <Typography sx={{ color: "#90caf9", mt: 1 }}>
               🕐 {tour.duration}
             </Typography>
           )}
         </Container>
       </Box>
 
-      {/* MAIN SECTION */}
+      {/* MAIN */}
       <Container sx={{ py: { xs: 5, md: 8 } }}>
         <Grid container spacing={5}>
 
-          {/* LEFT CONTENT */}
+          {/* LEFT */}
           <Grid item xs={12} md={8}>
 
-            {/* OVERVIEW */}
-            {tour.description && (
-              <Box sx={{ mb: 6 }}>
-                <Typography
-                  variant="h5"
-                  sx={{ fontWeight: 700, mb: 2 }}
-                >
-                  Overview
-                </Typography>
+            <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
+              {tour.description && (
+                <Box sx={{ mb: 6 }}>
+                  <Typography variant="h5" sx={{ fontWeight: 700, mb: 2 }}>
+                    Overview
+                  </Typography>
 
-                <Typography
-                  sx={{
-                    fontSize: "1.1rem",
-                    lineHeight: 1.9,
-                    color: "#444"
-                  }}
-                >
-                  {tour.description}
-                </Typography>
-              </Box>
-            )}
+                  <Typography sx={{ fontSize: "1.1rem", lineHeight: 1.9, color: "#444" }}>
+                    {tour.description}
+                  </Typography>
+                </Box>
+              )}
+            </motion.div>
 
-            {/* HIGHLIGHTS */}
-            {(tour.highlights || []).length > 0 && (
-              <Box sx={{ mb: 6 }}>
-                <Typography
-                  variant="h5"
-                  sx={{ fontWeight: 700, mb: 3 }}
-                >
-                  Tour Highlights
-                </Typography>
+            <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
+              {(tour.highlights || []).length > 0 && (
+                <Box sx={{ mb: 6 }}>
+                  <Typography variant="h5" sx={{ fontWeight: 700, mb: 3 }}>
+                    Tour Highlights
+                  </Typography>
 
-                {(tour.highlights || []).map((item, index) => (
-                  <Box
-                    key={index}
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      mb: 1.5
-                    }}
-                  >
-                    <CheckCircleOutlineIcon
-                      sx={{ color: "#1976d2", mr: 1.5 }}
-                    />
-
-                    <Typography>{item}</Typography>
-                  </Box>
-                ))}
-              </Box>
-            )}
-
-            {/* ITINERARY */}
-            {(tour.itinerary || []).length > 0 && (
-              <Box sx={{ mb: 6 }}>
-                <Typography
-                  variant="h5"
-                  sx={{ fontWeight: 700, mb: 3 }}
-                >
-                  Day Wise Itinerary
-                </Typography>
-
-                <Box
-                  sx={{
-                    borderLeft: "3px solid #1976d2",
-                    pl: 3
-                  }}
-                >
-                  {(tour.itinerary || []).map((day, index) => (
-                    <Box key={index} sx={{ mb: 3 }}>
-                      <Typography sx={{ fontWeight: 700 }}>
-                        Day {index + 1}
-                      </Typography>
-
-                      <Typography sx={{ color: "#555" }}>
-                        {day.title || day}
-                      </Typography>
+                  {tour.highlights.map((item, index) => (
+                    <Box key={index} sx={{ display: "flex", mb: 1.5 }}>
+                      <CheckCircleOutlineIcon sx={{ color: "#1976d2", mr: 1.5 }} />
+                      <Typography>{item}</Typography>
                     </Box>
                   ))}
                 </Box>
-              </Box>
-            )}
+              )}
+            </motion.div>
 
-            {/* INCLUSIONS / EXCLUSIONS */}
-            {((tour.includes || []).length > 0 ||
-              (tour.excludes || []).length > 0) && (
+            <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
+              {(tour.itinerary || []).length > 0 && (
+                <Box sx={{ mb: 6 }}>
+                  <Typography variant="h5" sx={{ fontWeight: 700, mb: 3 }}>
+                    Day Wise Itinerary
+                  </Typography>
 
-              <Box sx={{ mb: 6 }}>
-                <Typography
-                  variant="h5"
-                  sx={{ fontWeight: 700, mb: 3 }}
-                >
-                  Inclusions & Exclusions
-                </Typography>
+                  <Box sx={{ borderLeft: "3px solid #1976d2", pl: 3 }}>
+                    {tour.itinerary.map((day, index) => (
+                      <Box key={index} sx={{ mb: 3 }}>
+                        <Typography sx={{ fontWeight: 700 }}>
+                          Day {index + 1}
+                        </Typography>
 
-                <Grid container spacing={4}>
-
-                  {/* INCLUSIONS */}
-                  {(tour.includes || []).length > 0 && (
-                    <Grid item xs={12} md={6}>
-                      <Typography
-                        sx={{
-                          fontWeight: 700,
-                          mb: 2,
-                          color: "#2e7d32"
-                        }}
-                      >
-                        Included
-                      </Typography>
-
-                      {(tour.includes || []).map((item, i) => (
-                        <Box
-                          key={i}
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            mb: 1.5
-                          }}
-                        >
-                          <CheckCircleOutlineIcon
-                            sx={{
-                              color: "#2e7d32",
-                              mr: 1.5,
-                              fontSize: 20
-                            }}
-                          />
-
-                          <Typography>{item}</Typography>
-                        </Box>
-                      ))}
-                    </Grid>
-                  )}
-
-                  {/* EXCLUSIONS */}
-                  {(tour.excludes || []).length > 0 && (
-                    <Grid item xs={12} md={6}>
-                      <Typography
-                        sx={{
-                          fontWeight: 700,
-                          mb: 2,
-                          color: "#c62828"
-                        }}
-                      >
-                        Not Included
-                      </Typography>
-
-                      {(tour.excludes || []).map((item, i) => (
-                        <Box
-                          key={i}
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            mb: 1.5
-                          }}
-                        >
-                          <CancelOutlinedIcon
-                            sx={{
-                              color: "#c62828",
-                              mr: 1.5,
-                              fontSize: 20
-                            }}
-                          />
-
-                          <Typography>{item}</Typography>
-                        </Box>
-                      ))}
-                    </Grid>
-                  )}
-
-                </Grid>
-              </Box>
-            )}
+                        <Typography sx={{ color: "#555" }}>
+                          {day.title || day}
+                        </Typography>
+                      </Box>
+                    ))}
+                  </Box>
+                </Box>
+              )}
+            </motion.div>
 
           </Grid>
 
-          {/* RIGHT BOOKING CARD */}
+          {/* RIGHT */}
           <Grid item xs={12} md={4}>
-
-            <Card
-              sx={{
-                p: 4,
-                borderRadius: 3,
-                position: "sticky",
-                top: 100,
-                boxShadow: "0 10px 30px rgba(0,0,0,0.1)"
-              }}
-            >
-              <Typography
-              
+            <motion.div variants={fadeUp} initial="hidden" animate="show">
+              <Card
                 sx={{
-                  fontSize: { xs: "1.1rem", md: "1.4rem" },
-                  color: "bluegrey.600",
-                  mb: 0.5
+                  p: 4,
+                  borderRadius: 3,
+                  position: "sticky",
+                  top: 100,
+                  boxShadow: "0 10px 30px rgba(0,0,0,0.1)"
                 }}
               >
-                Starting at
-              </Typography>
+                <Typography sx={{ mb: 1 }}>Starting at</Typography>
 
-              <Typography
-                variant="h4"
-                sx={{
-                  fontWeight: 800,
-                  color: "#1976d2",
-                  mb: 1
-                }}
-              >
-              {tour.price}/-
-              </Typography>
-
-              {tour.duration && (
-                <Typography sx={{ mb: 3, color: "#555" }}>
-                  Duration: {tour.duration}
+                <Typography variant="h4" sx={{ fontWeight: 800, color: "#1976d2", mb: 2 }}>
+                  ₹{tour?.price?.toLocaleString()}/-
                 </Typography>
-              )}
 
-              <Divider sx={{ mb: 3 }} />
+                <Divider sx={{ mb: 3 }} />
 
-              <Button
-                variant="contained"
-                fullWidth
-                onClick={whatsappLink}
-                sx={{
-                  py: 1.5,
-                  borderRadius: 2,
-                  fontWeight: 700,
-                  textTransform: "none",
-                  fontSize: "1rem",
-                  background: "#25d366",
-                  "&:hover": {
-                    background: "#1ebe5d"
-                  }
-                }}
-              >
-                Book on WhatsApp
-              </Button>
-
-            </Card>
-
+                <Button
+                  variant="contained"
+                  fullWidth
+                  onClick={whatsappLink}
+                  sx={{
+                    py: 1.5,
+                    borderRadius: 2,
+                    fontWeight: 700,
+                    background: "#25d366",
+                    "&:hover": { background: "#1ebe5d" }
+                  }}
+                >
+                  Book on WhatsApp
+                </Button>
+              </Card>
+            </motion.div>
           </Grid>
 
         </Grid>

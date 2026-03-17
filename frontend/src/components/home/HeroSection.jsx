@@ -44,7 +44,7 @@ export default function HeroSection({ heroImages = [] }) {
     <Box
       sx={{
         position: "relative",
-        height: { xs: "55vh", sm: "65vh", md: "95vh" },
+        height: { xs: "45vh", sm: "60vh", md: "95vh" },
         overflow: "hidden",
         display: "flex",
         alignItems: "center",

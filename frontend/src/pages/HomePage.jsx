@@ -1,7 +1,7 @@
 import { useEffect, useState, lazy, Suspense } from "react";
 import { Explore, Public } from "@mui/icons-material";
 import { toursAPI, heroAPI } from "@/services/api";
-import SnowEffect from "@/components/effects/SnowEffect";
+
 import { Box } from "@mui/material";
 
 const HeroSection = lazy(() => import("@/components/home/HeroSection"));
@@ -33,8 +33,7 @@ export default function HomePage() {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <SnowEffect />
-
+     
       <HeroSection heroImages={heroImages} />
 
       <PopularSection tours={popularTours} />
@@ -45,6 +44,7 @@ export default function HomePage() {
         title="Domestic Escapes"
         subtitle="From snowy peaks to serene backwaters."
         tours={domesticTours}
+        category="domestic"
       />
 
       <TourSection
@@ -54,6 +54,7 @@ export default function HomePage() {
         title="International Wonders"
         subtitle="Curated global experiences."
         tours={internationalTours}
+        category="international"
       />
      
       <ContactSection />
